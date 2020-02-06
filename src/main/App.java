@@ -1,53 +1,97 @@
 import DAO.ModalidadeDAO;
+import DAO.PaisDAO;
 import DAO.TipoPasseioDAO;
+import DAO.ViajanteDAO;
 import connection.JDBDCConnection;
 import domain.Modalidade;
+import domain.Pais;
 import domain.TipoPasseio;
+import domain.Viajante;
+
+import java.util.Date;
 
 public class App {
 
     public static void main(String[] args) {
         System.out.println(JDBDCConnection.getConnection());
 
+        /** MODALIDADE **/
+
         // SALVAR
-//        Modalidade modalidade = new Modalidade();
-//        modalidade.setNome("caminhada tirando fotos");
-//
-//        new ModalidadeDAO().salvar(modalidade);
+//        new ModalidadeDAO().salvar(new Modalidade(null,"corrida com fotos"));
 
         //UPDATE
-//        Modalidade modalidade = new Modalidade();
-//        modalidade.setNome("Caminhada com fotos");
-//        modalidade.setIdModalidade(9);
-//
-//        new ModalidadeDAO().atualizar(modalidade);
+//        new ModalidadeDAO().atualizar(new Modalidade(8, "Caminhada com fotos"));
 
         //DELETE
-//        Modalidade modalidade= new Modalidade();
-//        modalidade.setIdModalidade(8);
-//
-//        new ModalidadeDAO().deletar(modalidade);
+//        new ModalidadeDAO().deletar(new Modalidade(8, null));
 
-        //LISTAR TODOS
+        //LISTAR
 //        for (Modalidade modalidade : new ModalidadeDAO().listarTodos()) {
 //            System.out.println(modalidade.toString());
 //        }
 
-        /** TIPO PASSEIO **/
+        /** Tipo Passeio **/
 
         // SALVAR
-//        TipoPasseio tipoPasseio = new TipoPasseio();
-//        tipoPasseio.setNomePasseio("Semi - Privativo");
-//        tipoPasseio.setDescricaoPasseio("Passeio somente para casal");
-//
-//        new TipoPasseioDAO().salvar(tipoPasseio);
+//        new TipoPasseioDAO().salvar(new TipoPasseio(null, "semi - testando", "teste"));
 
         //UPDATE
-//        TipoPasseio tipoPasseio = new TipoPasseio();
-//        tipoPasseio.setIdTipoPasseio(3);
-//        tipoPasseio.setNomePasseio("SemiPrivativo");
-//        tipoPasseio.setDescricaoPasseio("Passeio somente para casal");
-//
-//        new TipoPasseioDAO().atualizar(tipoPasseio);
+//        new TipoPasseioDAO().atualizar(new TipoPasseio(5, "semiprivativo", "Passeio para casal"));
+
+        //DELETAR
+//        new TipoPasseioDAO().deletar(new TipoPasseio(5));
+
+        //LISTAR
+//        for (TipoPasseio tipoPasseio : new TipoPasseioDAO().listarTodos()) {
+//            System.out.println(tipoPasseio.toString());
+//        }
+
+        /** PAÍS **/
+
+        // SALVAR
+//        new PaisDAO().salvar(new Pais(null, "Grécia"));
+
+        //UPDATE
+//        new PaisDAO().atualizar(new Pais(4, "Itália"));
+
+        //DELETAR
+//        new PaisDAO().deletar(new Pais(4, null));
+
+        //LISTAR
+//        for (Pais pais : new PaisDAO().listarTodos()) {
+//            System.out.println(pais.toString());
+//        }
+
+        /** VIAJANTE **/
+
+        // SALVAR
+//        new ViajanteDAO().salvar(
+//                new Viajante(
+//                        null,
+//                        "paulão",
+//                        "936434323",
+//                        java.sql.Date.valueOf("2001-01-10")
+//                )
+//        );
+
+        //UPDATE
+//        new ViajanteDAO().atualizar(
+//                new Viajante(
+//                    3,
+//                    "paulinho",
+//                    "000000",
+//                    java.sql.Date.valueOf("2010-02-08")
+//                )
+//        );
+
+        //DELETAR
+//        new ViajanteDAO().deletar(new Viajante(7));
+
+        //LISTAR
+//        for (Viajante viajante : new ViajanteDAO().listarTodos()) {
+//            System.out.println(viajante.toString());
+//        }
+
     }
 }

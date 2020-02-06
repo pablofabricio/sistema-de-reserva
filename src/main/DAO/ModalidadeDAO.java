@@ -20,9 +20,8 @@ public class ModalidadeDAO implements DAO<Modalidade> {
 
     @Override
     public void salvar(Modalidade domain) {
-       try {
 
-//        String sql = "INSERT INTO modalidade(nome) VALUES('" + modalidade.getNome() + "');'"; MANEIRA ERRADA ( pode receber mysql injection )
+        try {
            String sql = "INSERT INTO modalidade(nome) VALUES(?)";
            PreparedStatement ps = this.conexao.prepareStatement(sql);
            ps.setString(1,domain.getNome());
@@ -72,10 +71,12 @@ public class ModalidadeDAO implements DAO<Modalidade> {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
-                Modalidade modalidade = new Modalidade();
-                modalidade.setIdModalidade(rs.getInt("id_modalidade"));
-                modalidade.setNome(rs.getString("nome"));
-                modalidades.add(modalidade);
+                modalidades.add(
+                    new Modalidade(
+                        rs.getInt("id_modalidade"),
+                        rs.getString("nome")
+                    )
+                );
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

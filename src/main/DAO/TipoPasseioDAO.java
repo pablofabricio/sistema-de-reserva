@@ -21,9 +21,8 @@ public class TipoPasseioDAO implements DAO<TipoPasseio> {
 
     @Override
     public void salvar(TipoPasseio domain) {
-        try {
 
-//        String sql = "INSERT INTO tipo_passeio(nome) VALUES('" + tipo_passeio.getNome() + "');'"; MANEIRA ERRADA ( pode receber mysql injection )
+        try {
             String sql = "INSERT INTO tipo_passeio(nome_passeio,descricao_passeio) VALUES(?,?)";
             PreparedStatement ps = this.conexao.prepareStatement(sql);
             ps.setString(1,domain.getNomePasseio());
@@ -38,6 +37,7 @@ public class TipoPasseioDAO implements DAO<TipoPasseio> {
 
     @Override
     public void atualizar(TipoPasseio domain){
+
         try {
             String sql = "UPDATE tipo_passeio SET nome_passeio = ? , descricao_passeio = ?  WHERE id_tipo_passeio = ?";
             PreparedStatement ps = this.conexao.prepareStatement(sql);
@@ -54,6 +54,7 @@ public class TipoPasseioDAO implements DAO<TipoPasseio> {
 
     @Override
     public void deletar(TipoPasseio domain){
+
         try {
             String sql = "DELETE FROM tipo_passeio WHERE id_tipo_passeio = ?";
             PreparedStatement ps = this.conexao.prepareStatement(sql);
@@ -69,17 +70,19 @@ public class TipoPasseioDAO implements DAO<TipoPasseio> {
     @Override
     public List<TipoPasseio> listarTodos(){
         List<TipoPasseio> tipoPasseios = new ArrayList<TipoPasseio>();
+
         try {
             String sql = "SELECT * FROM tipo_passeio";
             PreparedStatement ps = this.conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
-                TipoPasseio tipoPasseio = new TipoPasseio();
-                tipoPasseio.setIdTipoPasseio(rs.getInt("id_tipo_passeio"));
-                tipoPasseio.setNomePasseio(rs.getString("nome_passeio"));
-                tipoPasseio.setDescricaoPasseio(rs.getString("descricao_passeio"));
-                tipoPasseios.add(tipoPasseio);
+                tipoPasseios.add(
+                    new TipoPasseio(rs.getInt("id_tipo_passeio"),
+                            rs.getString("nome_passeio"),
+                            rs.getString("descricao_passeio")
+                    )
+                );
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

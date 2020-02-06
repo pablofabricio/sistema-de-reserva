@@ -5,6 +5,11 @@ public class Modalidade {
     private Integer idModalidade;
     private String nome;
 
+    public Modalidade(Integer idModalidade, String nome) {
+        this.idModalidade = idModalidade;
+        this.nome = nome;
+    }
+
     public Integer getIdModalidade() {
         return idModalidade;
     }

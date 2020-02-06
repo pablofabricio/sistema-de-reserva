@@ -8,6 +8,16 @@ public class TipoPasseio {
 
         private String descricaoPasseio;
 
+    public TipoPasseio(Integer idTipoPasseio, String nomePasseio, String descricaoPasseio) {
+        this.idTipoPasseio = idTipoPasseio;
+        this.nomePasseio = nomePasseio;
+        this.descricaoPasseio = descricaoPasseio;
+    }
+
+    public TipoPasseio(Integer idTipoPasseio) {
+        this.idTipoPasseio = idTipoPasseio;
+    }
+
     public String getNomePasseio() {
         return nomePasseio;
     }

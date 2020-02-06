@@ -2,7 +2,6 @@ package DAO;
 
 import connection.JDBDCConnection;
 import domain.Pais;
-import domain.Pais;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,13 +19,11 @@ public class PaisDAO implements DAO<Pais> {
 
     @Override
     public void salvar(Pais domain) {
-        try {
 
-//        String sql = "INSERT INTO tipo_passeio(nome) VALUES('" + tipo_passeio.getNome() + "');'"; MANEIRA ERRADA ( pode receber mysql injection )
-            String sql = "INSERT INTO tipo_passeio(nome_passeio,descricao_passeio) VALUES(?,?)";
+        try {
+            String sql = "INSERT INTO pais(nome_pais) VALUES(?)";
             PreparedStatement ps = this.conexao.prepareStatement(sql);
-            ps.setString(1,domain.getNomePasseio());
-            ps.setString(2,domain.getDescricaoPasseio());
+            ps.setString(1,domain.getNomePais());
             ps.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -37,12 +34,12 @@ public class PaisDAO implements DAO<Pais> {
 
     @Override
     public void atualizar(Pais domain){
+
         try {
-            String sql = "UPDATE tipo_passeio SET nome_passeio = ? , descricao_passeio = ?  WHERE id_tipo_passeio = ?";
+            String sql = "UPDATE pais SET nome_pais = ? WHERE id_pais = ?";
             PreparedStatement ps = this.conexao.prepareStatement(sql);
-            ps.setString(1, domain.getNomePasseio());
-            ps.setString(2,domain.getDescricaoPasseio());
-            ps.setInt(3, domain.getIdPais());
+            ps.setString(1, domain.getNomePais());
+            ps.setInt(2, domain.getIdPais());
             ps.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -53,8 +50,9 @@ public class PaisDAO implements DAO<Pais> {
 
     @Override
     public void deletar(Pais domain){
+
         try {
-            String sql = "DELETE FROM tipo_passeio WHERE id_tipo_passeio = ?";
+            String sql = "DELETE FROM pais WHERE id_pais = ?";
             PreparedStatement ps = this.conexao.prepareStatement(sql);
             ps.setInt(1, domain.getIdPais());
             ps.execute();
@@ -67,25 +65,27 @@ public class PaisDAO implements DAO<Pais> {
 
     @Override
     public List<Pais> listarTodos(){
-        List<Pais> tipoPasseios = new ArrayList<Pais>();
+        List<Pais> paisList = new ArrayList<Pais>();
+
         try {
-            String sql = "SELECT * FROM tipo_passeio";
+            String sql = "SELECT * FROM pais";
             PreparedStatement ps = this.conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
-                Pais tipoPasseio = new Pais();
-                tipoPasseio.setIdPais(rs.getInt("id_tipo_passeio"));
-                tipoPasseio.setNomePasseio(rs.getString("nome_passeio"));
-                tipoPasseio.setDescricaoPasseio(rs.getString("descricao_passeio"));
-                tipoPasseios.add(tipoPasseio);
+                paisList.add(
+                    new Pais(
+                        rs.getInt("id_pais"),
+                        rs.getString("nome_pais")
+                    )
+                );
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
             close();
         }
-        return tipoPasseios;
+        return paisList;
     }
 
     @Override
